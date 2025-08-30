@@ -17,7 +17,7 @@ async function validateTaxId(countryCode, taxId, onlineCheckRequired = false, de
     let regexValid = false;
     let checkSumCheckPresent = false;
     let checkSumValid = false;
-    let onnlineCheckPresent = false;
+    let onlineCheckPresent = false;
     let onlineCheckResult = false;
     let countryModule;
 
@@ -34,7 +34,7 @@ async function validateTaxId(countryCode, taxId, onlineCheckRequired = false, de
             }
             
             checkSumCheckPresent = entry.checksum;
-            onnlineCheckPresent = entry.online;
+            onlineCheckPresent = entry.online;
             if(checkSumCheckPresent || onlineCheckRequired)
     {
         try {
@@ -98,7 +98,7 @@ async function validateTaxId(countryCode, taxId, onlineCheckRequired = false, de
         regexValid: regexValid,
         checkSumCheckPresent: checkSumCheckPresent,
         checkSum: checkSumValid,
-        onnlineCheckPresent: onnlineCheckPresent,
+        onlineCheckPresent: onlineCheckPresent,
         onlineCheck: onlineCheckResult
     };
 }

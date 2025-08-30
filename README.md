@@ -38,13 +38,33 @@ const countryCode = 'IN'; // Use the appropriate country code
 const result = validateTaxId(countryCode, taxId);
 console.log(result); // logs true if valid, false if invalid
 ```
+
+### US Tax ID Validation
+
+The US module supports comprehensive validation for EIN, SSN, and ITIN with checksum validation and IRS TIN Matching API integration:
+
+```javascript
+const validateTaxId = require('corporate-taxid-checker-js');
+
+// Validate US tax IDs (all types supported)
+const einResult = await validateTaxId('US', '12-3456789');     // EIN validation
+const ssnResult = await validateTaxId('US', '234-56-7890');    // SSN validation
+const itinResult = await validateTaxId('US', '912-70-1234');   // ITIN validation
+
+// With online verification via IRS TIN Matching (requires e-Services registration)
+const onlineResult = await validateTaxId('US', '12-3456789', true);
+```
+
+The IRS TIN Matching service verifies ALL US tax ID types (EIN, SSN, ITIN) through one unified API. For setup instructions, see [US TIN Matching Guide](docs/US_TIN_MATCHING_GUIDE.md)
 ### Validation Levels
 
 For enhanced accuracy and reliability, our tool offers three levels of TIN validation for several countries:
 
 1.  **Regex Check:** This initial check ensures the TIN adheres to the expected format using precise regular expressions.
 2.  **Checksum Validation:** Based on the guidelines from the [OECD](https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/), this check verifies the integrity of the TIN using its checksum.
-3.  **Authority Lookup (Available for EU countries and Australia):** This advanced check confirms the validity of the TIN by directly querying the respective country's tax authority website.
+3.  **Authority Lookup:** This advanced check confirms the validity of the TIN by directly querying the respective country's tax authority:
+   - **EU countries and Australia:** Direct online verification with tax authorities  
+   - **United States:** IRS TIN Matching API for comprehensive EIN, SSN, and ITIN validation
 
 ## Supported Countries and TINs
 
@@ -52,196 +72,101 @@ The `Tax ID Validator` currently supports tax identification number validation f
 
 Country Code | Country | Regex Check | Checksum Check | Online Check
 ---|---|---|---|---
-AD | Andorra | ✅ | ✅ | 
-AE | United Arab Emirates | ✅ |  | 
 AL | Albania | ✅ | ✅ | 
-AM | Armenia | ✅ |  | 
-AR | Argentina | ✅ | ✅ | 
-AT | Austria | ✅ | ✅ | 
-AU | Australia | ✅ | ✅ | 
-AZ | Azerbaijan |  | ✅ | 
-BD | Bangladesh | ✅ |  | 
-BE | Belgium | ✅ | ✅ | 
-BG | Bulgaria | ✅ | ✅ | 
-BO | Bolivia | ✅ |  | 
-BR | Brazil | ✅ | ✅ | 
-BY | Belarus |  | ✅ | 
-BZ | Belize | ✅ | ✅ | 
-CA | Canada | ✅ | ✅ | 
-CH | Switzerland | ✅ | ✅ | 
-CL | Chile | ✅ | ✅ | 
-CN | China | ✅ | ✅ | 
-CO | Colombia | ✅ | ✅ | 
-CR | Costa Rica | ✅ | ✅ | 
-CY | Cyprus | ✅ | ✅ | 
-CZ | Czech Republic | ✅ | ✅ | 
-DE | Germany | ✅ | ✅ | 
-DK | Denmark | ✅ | ✅ | 
-DO | Dominican Republic | ✅ |  | 
 DZ | Algeria | ✅ |  | 
-EC | Ecuador | ✅ | ✅ | 
-EE | Estonia | ✅ | ✅ | 
-EG | Egypt | ✅ | ✅ | 
-ES | Spain | ✅ | ✅ | 
-FI | Finland | ✅ | ✅ | 
-FR | France | ✅ | ✅ | 
-FO | Faroe Islands | ✅ |  | 
-GB | United Kingdom | ✅ |  | 
-GE | Georgia | ✅ |  | 
-GH | Ghana | ✅ | ✅ | 
-GN | Guinea | ✅ | ✅ | 
-GR | Greece | ✅ |  | 
-GT | Guatemala | ✅ | ✅ | 
-HK | Hong Kong | ✅ |  | 
-HR | Croatia | ✅ |  | 
-HU | Hungary | ✅ | ✅ | 
-ID | Indonesia | ✅ | ✅ | 
-IE | Ireland | ✅ | ✅ | 
-IL | Israel | ✅ | ✅ | 
-IN | India | ✅ | ✅ | 
-IS | Iceland | ✅ |  | 
-IT | Italy | ✅ |  | 
-JP | Japan | ✅ | ✅ | 
-KE | Kenya | ✅ |  | 
-KH | Cambodia | ✅ |  | 
-KR | South Korea | ✅ | ✅ | 
-LI | Liechtenstein | ✅ |  | 
-LT | Lithuania | ✅ |  | 
-LU | Luxembourg | ✅ |  | 
-LV | Latvia | ✅ |  | 
-MA | Morocco | ✅ | ✅ | 
-FR | Monaco | ✅ |  | 
-MD | Moldova | ✅ |  | 
-ME | Montenegro | ✅ | ✅ | 
-MK | North Macedonia |  | ✅ | 
-MT | Malta | ✅ |  | 
-MX | Mexico | ✅ | ✅ | 
-MY | Malaysia | ✅ |  | 
-NG | Nigeria | ✅ |  | 
-NL | Netherlands | ✅ | ✅ | 
-NO | Norway | ✅ | ✅ | 
-NZ | New Zealand | ✅ | ✅ | 
-PE | Peru | ✅ | ✅ | 
-PH | Philippines | ✅ |  | 
-PL | Poland | ✅ | ✅ | 
-PT | Portugal | ✅ | ✅ | 
-PY | Paraguay | ✅ | ✅ | 
-RO | Romania | ✅ | ✅ | 
-RS | Serbia | ✅ | ✅ | 
-RU | Russia | ✅ | ✅ | 
-RW | Rwanda | ✅ |  | 
-SA | Saudi Arabia | ✅ |  | 
-SE | Sweden | ✅ | ✅ | 
-SG | Singapore | ✅ | ✅ | 
-SI | Slovenia | ✅ | ✅ | 
-SK | Slovakia | ✅ | ✅ | 
-SM | San Marino | ✅ | ✅ | 
-SV | El Salvador | ✅ | ✅ | 
-TH | Thailand | ✅ | ✅ | 
-TN | Tunisia | ✅ | ✅ | 
-TR | Turkey | ✅ | ✅ | 
-TW | Taiwan | ✅ | ✅ | 
-UA | Ukraine | ✅ | ✅ | 
-US | United States | ✅ |  | 
-UY | Uruguay | ✅ | ✅ | 
-VE | Venezuela | ✅ | ✅ | 
-VN | Vietnam | ✅ | ✅ | 
-ZA | South Africa | ✅ | ✅ | 
 AD | Andorra | ✅ | ✅ | 
-AE | United Arab Emirates | ✅ |  | 
-AL | Albania | ✅ | ✅ | 
-AM | Armenia | ✅ |  | 
 AR | Argentina | ✅ | ✅ | 
-AT | Austria | ✅ | ✅ | ✅
+AM | Armenia | ✅ |  | 
 AU | Australia | ✅ | ✅ | ✅
+AT | Austria | ✅ | ✅ | ✅
 AZ | Azerbaijan |  | ✅ | 
 BD | Bangladesh | ✅ |  | 
+BY | Belarus |  | ✅ | 
 BE | Belgium | ✅ | ✅ | ✅
-BG | Bulgaria | ✅ | ✅ | ✅
+BZ | Belize | ✅ | ✅ | 
 BO | Bolivia | ✅ |  | 
 BR | Brazil | ✅ | ✅ | 
-BY | Belarus |  | ✅ | 
-BZ | Belize | ✅ | ✅ | 
+BG | Bulgaria | ✅ | ✅ | ✅
+KH | Cambodia | ✅ |  | 
 CA | Canada | ✅ | ✅ | 
-CH | Switzerland | ✅ | ✅ | 
 CL | Chile | ✅ | ✅ | 
 CN | China | ✅ | ✅ | 
 CO | Colombia | ✅ | ✅ | 
 CR | Costa Rica | ✅ | ✅ | 
+HR | Croatia | ✅ |  | ✅
 CY | Cyprus | ✅ | ✅ | ✅
 CZ | Czech Republic | ✅ | ✅ | ✅
-DE | Germany | ✅ | ✅ | ✅
 DK | Denmark | ✅ | ✅ | ✅
 DO | Dominican Republic | ✅ |  | 
-DZ | Algeria | ✅ |  | 
 EC | Ecuador | ✅ | ✅ | 
-EE | Estonia | ✅ | ✅ | ✅
 EG | Egypt | ✅ | ✅ | 
-ES | Spain | ✅ | ✅ | ✅
+SV | El Salvador | ✅ | ✅ | 
+EE | Estonia | ✅ | ✅ | ✅
+FO | Faroe Islands | ✅ |  | 
 FI | Finland | ✅ | ✅ | ✅
 FR | France | ✅ | ✅ | 
-FO | Faroe Islands | ✅ |  | 
-GB | United Kingdom | ✅ |  | 
 GE | Georgia | ✅ |  | 
+DE | Germany | ✅ | ✅ | ✅
 GH | Ghana | ✅ | ✅ | 
-GN | Guinea | ✅ | ✅ | 
 GR | Greece | ✅ |  | ✅
 GT | Guatemala | ✅ | ✅ | 
+GN | Guinea | ✅ | ✅ | 
 HK | Hong Kong | ✅ |  | 
-HR | Croatia | ✅ |  | ✅
 HU | Hungary | ✅ | ✅ | ✅
+IS | Iceland | ✅ |  | 
+IN | India | ✅ | ✅ | 
 ID | Indonesia | ✅ | ✅ | 
 IE | Ireland | ✅ | ✅ | ✅
 IL | Israel | ✅ | ✅ | 
-IN | India | ✅ | ✅ | 
-IS | Iceland | ✅ |  | 
 IT | Italy | ✅ |  | ✅
 JP | Japan | ✅ | ✅ | 
 KE | Kenya | ✅ |  | 
-KH | Cambodia | ✅ |  | 
-KR | South Korea | ✅ | ✅ | 
+LV | Latvia | ✅ |  | ✅
 LI | Liechtenstein | ✅ |  | 
 LT | Lithuania | ✅ |  | ✅
 LU | Luxembourg | ✅ |  | ✅
-LV | Latvia | ✅ |  | ✅
-MA | Morocco | ✅ | ✅ | 
-FR | Monaco | ✅ |  | 
-MD | Moldova | ✅ |  | 
-ME | Montenegro | ✅ | ✅ | 
-MK | North Macedonia |  | ✅ | 
+MY | Malaysia | ✅ |  | 
 MT | Malta | ✅ |  | ✅
 MX | Mexico | ✅ | ✅ | 
-MY | Malaysia | ✅ |  | 
-NG | Nigeria | ✅ |  | 
+MD | Moldova | ✅ |  | 
+MC | Monaco | ✅ |  | 
+ME | Montenegro | ✅ | ✅ | 
+MA | Morocco | ✅ | ✅ | 
 NL | Netherlands | ✅ | ✅ | ✅
-NO | Norway | ✅ | ✅ | 
 NZ | New Zealand | ✅ | ✅ | 
+NG | Nigeria | ✅ |  | 
+MK | North Macedonia |  | ✅ | 
+NO | Norway | ✅ | ✅ | 
+PY | Paraguay | ✅ | ✅ | 
 PE | Peru | ✅ | ✅ | 
 PH | Philippines | ✅ |  | 
 PL | Poland | ✅ | ✅ | ✅
 PT | Portugal | ✅ | ✅ | ✅
-PY | Paraguay | ✅ | ✅ | 
 RO | Romania | ✅ | ✅ | ✅
-RS | Serbia | ✅ | ✅ | 
 RU | Russia | ✅ | ✅ | 
 RW | Rwanda | ✅ |  | 
-SA | Saudi Arabia | ✅ |  | 
-SE | Sweden | ✅ | ✅ | ✅
-SG | Singapore | ✅ | ✅ | 
-SI | Slovenia | ✅ | ✅ | ✅
-SK | Slovakia | ✅ | ✅ | ✅
 SM | San Marino | ✅ | ✅ | 
-SV | El Salvador | ✅ | ✅ | 
+SA | Saudi Arabia | ✅ |  | 
+RS | Serbia | ✅ | ✅ | 
+SG | Singapore | ✅ | ✅ | 
+SK | Slovakia | ✅ | ✅ | ✅
+SI | Slovenia | ✅ | ✅ | ✅
+ZA | South Africa | ✅ | ✅ | 
+KR | South Korea | ✅ | ✅ | 
+ES | Spain | ✅ | ✅ | ✅
+SE | Sweden | ✅ | ✅ | ✅
+CH | Switzerland | ✅ | ✅ | 
+TW | Taiwan | ✅ | ✅ | 
 TH | Thailand | ✅ | ✅ | 
 TN | Tunisia | ✅ | ✅ | 
 TR | Turkey | ✅ | ✅ | 
-TW | Taiwan | ✅ | ✅ | 
 UA | Ukraine | ✅ | ✅ | 
-US | United States | ✅ |  | 
+AE | United Arab Emirates | ✅ |  | 
+GB | United Kingdom | ✅ |  | 
+US | United States | ✅ | ✅ | ✅
 UY | Uruguay | ✅ | ✅ | 
 VE | Venezuela | ✅ | ✅ | 
 VN | Vietnam | ✅ | ✅ | 
-ZA | South Africa | ✅ | ✅ | 
 
 ## Testing
 

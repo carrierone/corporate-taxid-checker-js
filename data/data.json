@@ -1243,13 +1243,22 @@
                 "label": "United States EIN",
                 "type": "us_ein",
                 "regex": "^\\d{2}-\\d{7}$",
-                "checksum": false
+                "checksum": true,
+                "online": true
+            },
+            {
+                "label": "United States SSN",
+                "type": "us_ssn",
+                "regex": "^(?!666|000|9\\d{2})\\d{3}[-]?(?!00)\\d{2}[-]?(?!0{4})\\d{4}$",
+                "checksum": true,
+                "online": true
             },
             {
                 "label": "United States ITIN",
                 "type": "us_itin",
                 "regex": "(9\\d{2})([ \\-]?)(5\\d|6[0-5]|7\\d|8[0-8]|9[0-2,4-9])([ \\-]?)(\\d{4})",
-                "checksum": false
+                "checksum": true,
+                "online": false
             }
         ]
     },
