@@ -32,7 +32,7 @@ You can register for TIN Matching if you are:
 
 1. **Visit IRS e-Services Portal**
    ```
-   https://www.irs.gov/e-file-providers/e-services-online-tools-for-tax-professionals
+   https://www.irs.gov/tax-professionals/taxpayer-identification-number-tin-matching
    ```
 
 2. **Create Account**
@@ -341,7 +341,7 @@ const testITINs = [
 - Email: e-help@irs.gov
 
 **Technical Documentation**
-- e-Services: https://www.irs.gov/e-file-providers
+- TIN Matching: https://www.irs.gov/tax-professionals/taxpayer-identification-number-tin-matching
 - TIN Matching: Search "TIN Matching" on IRS.gov
 
 ## Summary

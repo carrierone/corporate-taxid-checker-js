@@ -10,7 +10,7 @@
  * - IRS EIN Prefixes: https://www.irs.gov/businesses/small-businesses-self-employed/how-eins-are-assigned-and-valid-ein-prefixes
  * - SSA Number Structure: https://www.ssa.gov/policy/docs/ssb/v69n2/v69n2p55.html
  * - ITIN Ranges: https://www.irs.gov/tin/itin/individual-taxpayer-identification-number-itin
- * - IRS TIN Matching API: https://www.irs.gov/e-file-providers/e-services-online-tools-for-tax-professionals
+ * - IRS TIN Matching API: https://www.irs.gov/tax-professionals/taxpayer-identification-number-tin-matching
  */
 
 /**
@@ -339,9 +339,7 @@ function validate_us_itin(itin, debug = false) {
  * This service requires IRS e-Services registration and PKI certificate authentication.
  * 
  * Sources:
- * - IRS e-Services: https://www.irs.gov/e-file-providers/e-services-online-tools-for-tax-professionals
- * - TIN Matching: https://www.irs.gov/e-file-providers/tin-matching
- * - Registration Guide: https://www.irs.gov/e-file-providers/before-you-begin-e-services-registration
+ * - IRS TIN Matching: https://www.irs.gov/tax-professionals/taxpayer-identification-number-tin-matching
  * 
  * Response Match Codes:
  * - 0: TIN and Name match
@@ -379,7 +377,7 @@ async function verifyTINMatching(tin, debug = false) {
         if (!process.env.IRS_CERT_PATH || !process.env.REQUESTER_EIN) {
             if (debug) {
                 console.log('IRS TIN Matching verification requires e-Services registration');
-                console.log('Visit: https://www.irs.gov/e-file-providers/e-services-online-tools-for-tax-professionals');
+                console.log('Visit: https://www.irs.gov/tax-professionals/taxpayer-identification-number-tin-matching');
             }
             return false;
         }
